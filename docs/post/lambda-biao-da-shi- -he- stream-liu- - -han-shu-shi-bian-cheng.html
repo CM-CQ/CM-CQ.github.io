@@ -13,12 +13,11 @@
 # 函数式编程-Stream流
 ## 1、概述
 ### 1.1 为什么学？
-- 看懂公司的代码
-- 大数据量下处理集合效率高
-- 代码可读性高
-- 消灭嵌套地狱
-
-```
+看懂公司的代码
+大数据量下处理集合效率高
+代码可读性高
+消灭嵌套地狱
+```java
 //查询未成年作家的评分在70以上的书籍 由于洋流影响所以作家和书籍可能出现重复，需要进行去重
 List<Book> bookList = new ArrayList<>();
 Set<Book> uniqueBookValues = new Hashset<>:
@@ -38,8 +37,7 @@ for (Author author :authors) {
     }
 }
 System.out.println(bookList):
-```
-```
+
 List<Book> collect = authors.stream()
     .distinct()
     .filter(author -> author.getAge()< 18)
@@ -50,20 +48,19 @@ List<Book> collect = authors.stream()
     .co1lect(co1lectors.toList());
 System.out.println(collect);
 ```
-## 1.2 函数式编程思想
-### 1.2.1 概念
+### 1.2 函数式编程思想
+#### 1.2.1 概念
 面向对象思想需要关注用什么对象完成什么事情。">
 <meta property="og:title" content="lambda表达式 和 stream流 - 函数式编程">
 <meta property="og:description" content="
 # 函数式编程-Stream流
 ## 1、概述
 ### 1.1 为什么学？
-- 看懂公司的代码
-- 大数据量下处理集合效率高
-- 代码可读性高
-- 消灭嵌套地狱
-
-```
+看懂公司的代码
+大数据量下处理集合效率高
+代码可读性高
+消灭嵌套地狱
+```java
 //查询未成年作家的评分在70以上的书籍 由于洋流影响所以作家和书籍可能出现重复，需要进行去重
 List<Book> bookList = new ArrayList<>();
 Set<Book> uniqueBookValues = new Hashset<>:
@@ -83,8 +80,7 @@ for (Author author :authors) {
     }
 }
 System.out.println(bookList):
-```
-```
+
 List<Book> collect = authors.stream()
     .distinct()
     .filter(author -> author.getAge()< 18)
@@ -95,14 +91,14 @@ List<Book> collect = authors.stream()
     .co1lect(co1lectors.toList());
 System.out.println(collect);
 ```
-## 1.2 函数式编程思想
-### 1.2.1 概念
+### 1.2 函数式编程思想
+#### 1.2.1 概念
 面向对象思想需要关注用什么对象完成什么事情。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://CM-CQ.github.io/post/lambda-biao-da-shi-%20-he-%20stream-liu-%20-%20-han-shu-shi-bian-cheng.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/47654229?v=4">
 <title>lambda表达式 和 stream流 - 函数式编程</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 </head>
 <style>
@@ -159,73 +155,881 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><h1>函数式编程-Stream流</h1>
 <h2>1、概述</h2>
 <h3>1.1 为什么学？</h3>
-<ul>
-<li>看懂公司的代码</li>
-<li>大数据量下处理集合效率高</li>
-<li>代码可读性高</li>
-<li>消灭嵌套地狱</li>
-</ul>
-<pre class="notranslate"><code class="notranslate">//查询未成年作家的评分在70以上的书籍 由于洋流影响所以作家和书籍可能出现重复，需要进行去重
-List&lt;Book&gt; bookList = new ArrayList&lt;&gt;();
-Set&lt;Book&gt; uniqueBookValues = new Hashset&lt;&gt;:
-Set&lt;Author&gt; uniqueAuthorValues = new Hashset&lt;&gt;();
-for (Author author :authors) {
-    if (uniqueAuthorValues.add(author)){
-        if(author.getAge()&lt; 18){
-            List&lt;Book&gt; books = author.getBooks();
-            for(Book book :books){
-                if(book.getscore()&gt;70){
-                    if (uniqueBookValues.add(book)){
-                        bookList.add(book);
+<p>看懂公司的代码<br>
+大数据量下处理集合效率高<br>
+代码可读性高<br>
+消灭嵌套地狱</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//查询未成年作家的评分在70以上的书籍 由于洋流影响所以作家和书籍可能出现重复，需要进行去重</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">bookList</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
+<span class="pl-smi">Set</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">uniqueBookValues</span> = <span class="pl-k">new</span> <span class="pl-smi">Hashset</span>&lt;&gt;:
+<span class="pl-smi">Set</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">uniqueAuthorValues</span> = <span class="pl-k">new</span> <span class="pl-smi">Hashset</span>&lt;&gt;();
+<span class="pl-k">for</span> (<span class="pl-smi">Author</span> <span class="pl-s1">author</span> :<span class="pl-s1">authors</span>) {
+    <span class="pl-k">if</span> (<span class="pl-s1">uniqueAuthorValues</span>.<span class="pl-en">add</span>(<span class="pl-s1">author</span>)){
+        <span class="pl-k">if</span>(<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&lt; <span class="pl-c1">18</span>){
+            <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books</span> = <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>();
+            <span class="pl-k">for</span>(<span class="pl-smi">Book</span> <span class="pl-s1">book</span> :<span class="pl-s1">books</span>){
+                <span class="pl-k">if</span>(<span class="pl-s1">book</span>.<span class="pl-en">getscore</span>()&gt;<span class="pl-c1">70</span>){
+                    <span class="pl-k">if</span> (<span class="pl-s1">uniqueBookValues</span>.<span class="pl-en">add</span>(<span class="pl-s1">book</span>)){
+                        <span class="pl-s1">bookList</span>.<span class="pl-en">add</span>(<span class="pl-s1">book</span>);
                     }
                 }
             }
         }
     }
 }
-System.out.println(bookList):
-</code></pre>
-<pre class="notranslate"><code class="notranslate">List&lt;Book&gt; collect = authors.stream()
-    .distinct()
-    .filter(author -&gt; author.getAge()&lt; 18)
-    .map(author -&gt; author.getBooks())
-    .flatMap(collection::stream)
-    .filter(book -&gt; book.getscore()&gt;170)
-    .distinct()
-    .co1lect(co1lectors.toList());
-System.out.println(collect);
-</code></pre>
-<h2>1.2 函数式编程思想</h2>
-<h3>1.2.1 概念</h3>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bookList</span>):
+
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">collect</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+    .<span class="pl-en">distinct</span>()
+    .<span class="pl-en">filter</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&lt; <span class="pl-c1">18</span>)
+    .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>())
+    .<span class="pl-en">flatMap</span>(<span class="pl-s1">collection</span>::<span class="pl-s1">stream</span>)
+    .<span class="pl-en">filter</span>(<span class="pl-s1">book</span> -&gt; <span class="pl-s1">book</span>.<span class="pl-en">getscore</span>()&gt;<span class="pl-c1">170</span>)
+    .<span class="pl-en">distinct</span>()
+    .<span class="pl-en">co1lect</span>(<span class="pl-s1">co1lectors</span>.<span class="pl-en">toList</span>());
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">collect</span>);</pre></div>
+<h3>1.2 函数式编程思想</h3>
+<h4>1.2.1 概念</h4>
 <p>面向对象思想需要关注用什么对象完成什么事情。而函数式编程思想就类似于我们数学中的函数。它主要关注的是对数据进行了什么操作。</p>
-<h3>1.2.2 优点</h3>
-<ul>
-<li>代码简洁，开发快速</li>
-<li>接近自然语言，易于理解</li>
-<li>易于"并发编程”</li>
-</ul>
-<h1>2、Lambda表达式</h1>
-<h2>2.1 概述</h2>
+<h4>1.2.2 优点</h4>
+<p>代码简洁，开发快速<br>
+接近自然语言，易于理解<br>
+易于"并发编程”</p>
+<h2>2、Lambda表达式</h2>
+<h3>2.1 概述</h3>
 <p>Lambda是IDK8中一个语法糖。他可以对某些匿名内部类的写法进行简化。它是函数式编程思想的一个重要体现。让我们不用关注是什么对象。而是更关注我们对数据进行了什么操作。</p>
-<h2>2.2 核心原则</h2>
+<h3>2.2 核心原则</h3>
 <p>可推导可省略</p>
-<h2>2.3 基本格式</h2>
+<h3>2.3 基本格式</h3>
 <p><code class="notranslate">(参数列表) -&gt; {代码}</code><br>
 例一<br>
 我们在创建线程并启动时可以使用匿名内部类的写法:</p>
-<pre class="notranslate"><code class="notranslate">new Thread(new Runnable(){
-    @override
-    public void run() {
-        System.out.println("你知道吗 我比你想象的 更想在你身边");
-    }).start();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">Runnable</span>(){
+    <span class="pl-c1">@</span><span class="pl-c1">override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"你知道吗 我比你想象的 更想在你身边"</span>);
+    }).<span class="pl-en">start</span>();
+可使用<span class="pl-s1">Lambda</span>的格式对其进行修改。修改后如下：
+<span class="pl-k">new</span> <span class="pl-smi">Thread</span>(() -&gt; {
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"你知道吗 我比你想象的 更想在你身边"</span>);
+}).<span class="pl-en">start</span>();</pre></div>
+<p>例二<br>
+现有方法定义如下，其中IntBinaryOperator是一个接口。先使用匿名内部类的写法调用该方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-s1">calculateNum</span>(<span class="pl-smi">IntBinaryoperator</span> <span class="pl-s1">operator</span>){
+    <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
+    <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-c1">20</span>:
+    <span class="pl-k">return</span> <span class="pl-s1">operator</span>.<span class="pl-en">applyAsInt</span>(<span class="pl-s1">a</span>,<span class="pl-s1">b</span>);   
+}
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">string</span>[] <span class="pl-s1">args</span>) {
+    <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-en">calculateNum</span>( <span class="pl-k">new</span> <span class="pl-smi">IntBinaryoperator</span>(){
+       <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+       <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">applyAsInt</span>(<span class="pl-smi">int</span> <span class="pl-s1">left</span>,<span class="pl-smi">int</span> <span class="pl-s1">right</span>){
+           <span class="pl-k">return</span> <span class="pl-s1">left</span> + <span class="pl-s1">right</span>;       
+       }
+    });
+    <span class="pl-smi">System</span>.<span class="pl-s1">our</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+}
+<span class="pl-c">// Lambda写法:</span>
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    
+    <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-en">calculateNum</span>((<span class="pl-smi">int</span> <span class="pl-s1">a</span>,<span class="pl-smi">int</span> <span class="pl-s1">b</span>) -&gt; {
+        <span class="pl-k">return</span> <span class="pl-s1">a</span>+<span class="pl-s1">b</span>;
+    });
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+}</pre></div>
+<p>例三<br>
+现有方法定义如下，其中IntPredicate是一个接口。先使用匿名内部类的写法调用该方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">printNum</span>(<span class="pl-smi">IntPredicate</span> <span class="pl-s1">predicate</span>){
+    <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> ={<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>,<span class="pl-c1">6</span>,<span class="pl-c1">7</span>,<span class="pl-c1">8</span>,<span class="pl-c1">9</span>,<span class="pl-c1">10</span>};
+    <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span>:<span class="pl-s1">arr</span>){
+        <span class="pl-k">if</span>(<span class="pl-s1">predicate</span>.<span class="pl-en">test</span>(<span class="pl-s1">i</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+        }
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-en">printNum</span>( <span class="pl-k">new</span> <span class="pl-smi">IntPredicate</span>(){
+       <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+       <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">int</span> <span class="pl-s1">value</span>){
+           <span class="pl-k">return</span> <span class="pl-s1">value</span>%<span class="pl-c1">2</span> == <span class="pl-c1">0</span>;
+       }            
+    });
+
+}</pre></div>
+<p>Lambda写法:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-en">printNum</span>((<span class="pl-smi">int</span> <span class="pl-s1">value</span>) -&gt; { 
+        <span class="pl-k">return</span> <span class="pl-s1">value</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>;
+    })
+}
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">printNum</span>(<span class="pl-smi">IntPredicate</span> <span class="pl-s1">predicate</span>){
+    <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> ={<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>,<span class="pl-c1">6</span>,<span class="pl-c1">7</span>,<span class="pl-c1">8</span>,<span class="pl-c1">9</span>,<span class="pl-c1">10</span>};
+    <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span>:<span class="pl-s1">arr</span>){
+        <span class="pl-k">if</span>(<span class="pl-s1">predicate</span>.<span class="pl-en">test</span>(<span class="pl-s1">i</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+        }
+    }
+}</pre></div>
+<p>例四<br>
+现有方法定义如下，其中Function是一个接口。先使用匿名内部类的写法调用该方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> &lt;<span class="pl-smi">R</span>&gt;<span class="pl-s1">R</span> <span class="pl-en">typeconver</span>(<span class="pl-s1">Function</span>&lt;<span class="pl-s1">string</span>,<span class="pl-s1">R</span>&gt; <span class="pl-s1">function</span>){
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> =<span class="pl-s">"1235"</span>;
+    <span class="pl-smi">R</span> <span class="pl-s1">result</span> =<span class="pl-s1">function</span>.<span class="pl-en">apply</span>(<span class="pl-s1">str</span>);
+    <span class="pl-k">return</span> <span class="pl-s1">result</span>:
+}
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-smi">Integer</span> <span class="pl-s1">result</span> = <span class="pl-en">typeconver</span>(<span class="pl-k">new</span> <span class="pl-smi">Function</span>&lt;<span class="pl-smi">string</span>, <span class="pl-smi">Integer</span>&gt;(){
+        <span class="pl-c1">@</span><span class="pl-c1">override</span>
+        <span class="pl-k">public</span> <span class="pl-smi">Integer</span> <span class="pl-en">apply</span>(<span class="pl-smi">string</span> <span class="pl-s1">s</span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">Integer</span>.<span class="pl-en">valueof</span>(<span class="pl-s1">s</span>);
+        }
+    });
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);
+}</pre></div>
+<p>Lambda写法:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-smi">Integer</span> <span class="pl-s1">result</span> = <span class="pl-en">typeconver</span>((<span class="pl-smi">string</span> <span class="pl-s1">s</span>) -&gt; {
+            <span class="pl-k">return</span> <span class="pl-smi">Integer</span>.<span class="pl-en">valueof</span>(<span class="pl-s1">s</span>);
+        }
+    });
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);
+}</pre></div>
+<p>例五<br>
+现有方法定义如下，其中Intconsumer是一个接口。先使用匿名内部类的写法调用该方法</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">foreachArr</span>(<span class="pl-smi">IntConsumer</span> <span class="pl-s1">consumer</span>){
+    <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>,<span class="pl-c1">6</span>, <span class="pl-c1">7</span>,<span class="pl-c1">8</span>, <span class="pl-c1">9</span>, <span class="pl-c1">10</span>};
+    <span class="pl-k">for</span>(<span class="pl-s1">inti</span>:<span class="pl-s1">arr</span>){
+        <span class="pl-s1">consumer</span>.<span class="pl-en">accept</span>(<span class="pl-s1">i</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-en">foreachArr</span>(<span class="pl-k">new</span> <span class="pl-smi">IntConsumer</span>() {
+        <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+        <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">accept</span>(<span class="pl-smi">int</span> <span class="pl-s1">value</span>){
+              <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printLn</span>(<span class="pl-s1">value</span>);  
+        }
+    });
+}</pre></div>
+<p>Lambda表达式写法：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(){
+    <span class="pl-en">foreachArr</span>((<span class="pl-smi">int</span> <span class="pl-s1">value</span>) -&gt; {
+          <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printLn</span>(<span class="pl-s1">value</span>);  
+        }
+    });
+}</pre></div>
+<h4>2.4 Lambda省略规则</h4>
+<p>参数类型可省略<br>
+方法体只有一句代码时大括号return和唯一 一句代码的分号可以省略<br>
+方法只有一个参数时小括号可以省略<br>
+以上这些规则都记不住也可以省略不记 ( idea 里alt + 回车可显示提示 进行匿名内部内和lambda表达式的转换 )</p>
+<h2>3、Stream流</h2>
+<h3>3.1 概述</h3>
+<p>lava8的stream使用的是函数式编程模式，如同它的名字一样，它可以被用来对集合或数组进行链状流式的操作。可以更方便的让我们对集合或数组操作</p>
+<h3>3.2 案例数据准备</h3>
+<div class="highlight highlight-source-java"><pre class="notranslate">&lt;<span class="pl-s1">dependencies</span>&gt;
+    &lt;<span class="pl-s1">dependency</span>&gt;
+        &lt;<span class="pl-s1">groupId</span>&gt;<span class="pl-smi">org</span>.<span class="pl-smi">projectlombok</span>&lt;/<span class="pl-smi">groupId</span>&gt;
+        &lt;<span class="pl-s1">artifactId</span>&gt;<span class="pl-s1">lombok</span>&lt;/<span class="pl-s1">artifactId</span>&gt;
+        &lt;<span class="pl-s1">version</span>&gt;<span class="pl-c1">1.18</span>.<span class="pl-c1">16</span>&lt;/<span class="pl-smi">version</span>&gt;
+    &lt;/<span class="pl-s1">dependency</span>&gt;
+&lt;/<span class="pl-s1">dependencies</span>&gt;</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Data</span>
+<span class="pl-c1">@</span><span class="pl-c1">AllArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">NoArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">EqualsAndHashCode</span><span class="pl-c">//用于后期的去重使用</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Author</span> {
+    <span class="pl-c">//id</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Long</span> <span class="pl-s1">id</span>;
+    <span class="pl-c">//姓名</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-c">//年龄</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Integer</span> <span class="pl-s1">age</span>;
+    <span class="pl-c">//简介</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">intro</span>;
+    <span class="pl-c">//作品</span>
+    <span class="pl-k">private</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books</span>;
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Data</span>
+<span class="pl-c1">@</span><span class="pl-c1">AllArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">NoArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">EqualsAndHashCode</span><span class="pl-c">//用于后期的去重使用</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Book</span> {
+    <span class="pl-c">//id</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Long</span> <span class="pl-s1">id</span>;
+    <span class="pl-c">//书名</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-c">//分类</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">category</span>;
+    <span class="pl-c">//评分</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Integer</span> <span class="pl-s1">score</span>;
+    <span class="pl-c">//简介</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">intro</span>;    
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">getAuthors</span>(){
+    <span class="pl-c">//数据初始化</span>
+    <span class="pl-smi">Author</span> <span class="pl-s1">author</span> = <span class="pl-k">new</span> <span class="pl-smi">Author</span>(<span class="pl-c1">1L</span>,<span class="pl-s">"蒙多"</span>,<span class="pl-c1">33</span>,<span class="pl-s">"一个从菜刀中明悟哲理的祖安人"</span>,<span class="pl-c1">null</span>);
+    <span class="pl-smi">Author</span> <span class="pl-s1">author2</span> = <span class="pl-k">new</span> <span class="pl-smi">Author</span>(<span class="pl-c1">2L</span>,<span class="pl-s">"亚拉索"</span>,<span class="pl-c1">15</span>,<span class="pl-s">"狂风也追逐不上他的思考速度"</span>,<span class="pl-c1">null</span>);
+    <span class="pl-smi">Author</span> <span class="pl-s1">author3</span> = <span class="pl-k">new</span> <span class="pl-smi">Author</span>(<span class="pl-c1">3L</span>,<span class="pl-s">"易"</span>,<span class="pl-c1">14</span>,<span class="pl-s">"是这个世界在限制他的思维"</span>,<span class="pl-c1">null</span>);
+    <span class="pl-smi">Author</span> <span class="pl-s1">author4</span> = <span class="pl-k">new</span> <span class="pl-smi">Author</span>(<span class="pl-c1">3L</span>,<span class="pl-s">"易"</span>,<span class="pl-c1">14</span>,<span class="pl-s">"是这个世界在限制他的思维"</span>,<span class="pl-c1">null</span>);
+    
+    <span class="pl-c">//书籍列表</span>
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt;<span class="pl-s1">books1</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books2</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books3</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
+    
+    <span class="pl-s1">books1</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">1L</span>,<span class="pl-s">"刀的两侧是光明与黑暗"</span>,<span class="pl-s">"哲学,爱情"</span>,<span class="pl-c1">88</span>,<span class="pl-s">"用一把刀划分了爱恨"</span>));
+    <span class="pl-s1">books1</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">2L</span>,<span class="pl-s">"一个人不能死在同一把刀下"</span>,<span class="pl-s">"个人成长,爱情"</span>,<span class="pl-c1">99</span>,<span class="pl-s">"讲述如何从失败中明悟真理"</span>));
+    
+    <span class="pl-s1">books2</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">3L</span>,<span class="pl-s">"那风吹不到的地方"</span>,<span class="pl-s">"哲学"</span>,<span class="pl-c1">85</span>,<span class="pl-s">"带你用思维去领略世界的尽头"</span>));
+    <span class="pl-s1">books2</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">3L</span>,<span class="pl-s">"那风吹不到的地方"</span>,<span class="pl-s">"哲学"</span>,<span class="pl-c1">85</span>,<span class="pl-s">"带你用思维去领略世界的尽头"</span>));
+    <span class="pl-s1">books2</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">4L</span>,<span class="pl-s">"吹或不吹"</span>,<span class="pl-s">"爱情,个人传记"</span>,<span class="pl-c1">56</span>,<span class="pl-s">"一个哲学家的恋爱观注定很难把他所在的时代理解"</span>));
+    
+    <span class="pl-s1">books3</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">5L</span>,<span class="pl-s">"你的剑就是我的剑"</span>,<span class="pl-s">"爱情"</span>,<span class="pl-c1">56</span>,<span class="pl-s">"无法想象一个武者能对他的伴侣这么的宽容"</span>));
+    <span class="pl-s1">books3</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">6L</span>,<span class="pl-s">"风与剑"</span>,<span class="pl-s">"个人传记"</span>,<span class="pl-c1">100</span>,<span class="pl-s">"两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢?"</span>));
+    <span class="pl-s1">books3</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Book</span>(<span class="pl-c1">6L</span>,<span class="pl-s">"风与剑"</span>,<span class="pl-s">"个人传记"</span>,<span class="pl-c1">100</span>,<span class="pl-s">"两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢?"</span>));
+    
+    <span class="pl-s1">author</span>.<span class="pl-en">setBooks</span>(<span class="pl-s1">books1</span>);
+    <span class="pl-s1">author2</span>.<span class="pl-en">setBooks</span>(<span class="pl-s1">books2</span>);
+    <span class="pl-s1">author3</span>.<span class="pl-en">setBooks</span>(<span class="pl-s1">books3</span>);
+    <span class="pl-s1">author4</span>.<span class="pl-en">setBooks</span>(<span class="pl-s1">books3</span>);
+    
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authorList</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;(<span class="pl-smi">Arrays</span>.<span class="pl-en">asList</span>(<span class="pl-s1">author</span> ,<span class="pl-s1">author2</span>,<span class="pl-s1">author3</span>,<span class="pl-s1">author4</span>));
+    <span class="pl-k">return</span> <span class="pl-s1">authorList</span>;
+}</pre></div>
+<h3>3.3快速入门</h3>
+<h4>3.3.1 需求</h4>
+<p>我们可以调用getAuthors方法获取到作家的集合。现在需要打印所有年龄小于18的作家的名字，并且要注意去重。</p>
+<h4>3.3.2 实现</h4>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//打印所有年龄小于18的作家的名字，并且要注意去重</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+    <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()<span class="pl-c">//把集合转换成流</span>
+    .<span class="pl-en">distinct</span>()<span class="pl-c">//先去除重复的作家</span>
+    .<span class="pl-en">filter</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&lt;<span class="pl-c1">18</span>)<span class="pl-c">//筛选年龄小于18的</span>
+    .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-s1">system</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));<span class="pl-c">//遍历打印名字</span></pre></div>
+<h3>3.4 常用操作</h3>
+<h4>3.4.1 创建流</h4>
+<p>单列集合：<code class="notranslate"> 集合对象.stream()</code></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">stream</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+```<span class="pl-smi">java</span>
+数组：`<span class="pl-s1">Arrays</span>.<span class="pl-s1">stream</span>(数组)或者使用<span class="pl-s1">Stream</span>.<span class="pl-s1">of</span>来创建`
+```<span class="pl-s1">java</span>
+    <span class="pl-s1">Integer</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
+    <span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">stream</span> = <span class="pl-smi">Arrays</span>.<span class="pl-en">stream</span>(<span class="pl-s1">arr</span>);
+    <span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">stream2</span> = <span class="pl-smi">Stream</span>.<span class="pl-en">of</span>(<span class="pl-s1">arr</span>):</pre></div>
+<p>双列集合：<code class="notranslate">转换成单列集合后再创建</code></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Map</span>&lt;<span class="pl-smi">string</span>,<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>&lt;&gt;();
+<span class="pl-s1">map</span>.<span class="pl-en">put</span>(“蜡笔小新<span class="pl-s">",19);</span>
+<span class="pl-s">map.put("</span>黑子”,<span class="pl-c1">17</span>);
+<span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"日向翔阳"</span>,<span class="pl-c1">16</span>);
+<span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">string</span>, <span class="pl-smi">Integer</span>&gt;&gt; <span class="pl-s1">stream</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>().<span class="pl-en">stream</span>();</pre></div>
+<p>双列集合的使用：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Set</span>&lt;<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Integer</span>&gt;&gt; <span class="pl-s1">entrySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>();
+<span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Integer</span>&gt;&gt; <span class="pl-s1">stream</span> = <span class="pl-s1">entrySet</span>.<span class="pl-en">stream</span>();
+
+<span class="pl-s1">stream</span>.<span class="pl-en">filter</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Integer</span>&gt;&gt;(){
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span> (<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Integer</span>&gt; <span class="pl-s1">entry</span>){
+        <span class="pl-k">return</span> <span class="pl-s1">entry</span>.<span class="pl-en">getValue</span>()&gt;<span class="pl-c1">16</span>;
+    }
+}).<span class="pl-s1">forEach</span>(<span class="pl-k">new</span> <span class="pl-smi">Consumer</span>&lt;<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Integer</span>&gt;&gt;(){
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">accept</span>(<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>&lt;<span class="pl-smi">String</span>,<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">entry</span>){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">pritln</span>(<span class="pl-s1">entry</span>.<span class="pl-en">getKey</span>()+<span class="pl-s">"==="</span>+<span class="pl-s1">entry</span>.<span class="pl-en">getValue</span>());    
+    }</pre></div>
+<h4>3.4.2 中间操作</h4>
+<p>疑问：filter里面对字符串数组进行过滤 的操作(拼接字符串拿到结果)应该怎么做？<br>
+学完来答：数组要转 stream 不能直接转，只能使用   Arrays.stream()  类型  如果是集合类型的话 是使用   集合.stream()  转换为stream类型<br>
+若是要拼接字符串  可以在  多个中间操作和终止操作中都可以运行。</p>
+<h5>Filter</h5>
+<p>可以对流中的元素进行条件过滤，符合过滤条件的才能继续留在流中。<br>
+例:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 打印所有姓名长度大于1的作家的姓名</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">filter</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>().<span class="pl-en">length</span>()&gt;<span class="pl-c1">1</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-s1">system</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<h5>Map</h5>
+<p>可以把对流中的元素进行计算或转换。<br>
+例如:<br>
+打印所有作家的姓名</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt;<span class="pl-s1">authors</span>=<span class="pl-s1">getAuthors</span>;
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+    .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+    .<span class="pl-en">forEach</span>(<span class="pl-s1">name</span>-&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>)):</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 打印所有作家的姓名</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-s1">getAuthors</span>;
+
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">s</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>));
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>+<span class="pl-c1">10</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">age</span>));</pre></div>
+<h5>distinct</h5>
+<p>可以去除流中的重复元素<br>
+例如：<br>
+打印所有作家的行嘛，且要求其中不能有重复元素。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<p>注意：<strong>distinct方法是依赖Object的equals方法来判断是否是相同对象的。所以需要注意重写equals方法</strong></p>
+<h5>sorted</h5>
+<p>可对流中的元素进行排序</p>
+<blockquote>
+<p><em>.sorted()  // 该无参方法会直接将stream中的元素转换为comparable的类型 若是流中的元素是对象含多个属性 那么就会报无法转换的错 java.lang.ClassCastException 需在类上实现comparable接口<br>
+.sorted( object -&gt; {排序具体条件} )</em></p>
+</blockquote>
+<p>例如：<br>
+对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 使用sorted() 无参方法 在类上  实现comparable接口</span>
+<span class="pl-c1">@</span><span class="pl-c1">Data</span>
+<span class="pl-c1">@</span><span class="pl-c1">NoArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">AllArgsConstructor</span>
+<span class="pl-c1">@</span><span class="pl-c1">EqualsAndHashCode</span><span class="pl-c">//用于后期的大重使用</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-s1">Author</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">Author</span>&gt;<span class="pl-s1">i</span>
+    <span class="pl-c">//id</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Long</span> <span class="pl-s1">id</span>;
+    <span class="pl-s1">l1</span>姓名
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-c">//年龄</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Integer</span> <span class="pl-s1">age</span>;
+    <span class="pl-c">//简介</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">intro</span>;
+    <span class="pl-c">//作品</span>
+    <span class="pl-k">private</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+   <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-s1">compareTo</span>(<span class="pl-smi">Author</span> <span class="pl-s1">o</span>){
+        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-en">getAge</span>() - <span class="pl-s1">o</span>.<span class="pl-en">getAge</span>();    
+    }
+}
+
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">sorted</span>()
+        .<span class="pl-en">foreach</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>());</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+<span class="pl-c">//对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素。</span>
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">sorted</span>()
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()));
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span>=<span class="pl-en">getAuthors</span>();</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素。</span>
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">sorted</span>((<span class="pl-smi">o1</span>，<span class="pl-s1">o2</span>)-&gt;<span class="pl-s1">o2</span>.<span class="pl-en">getAge</span>()-<span class="pl-s1">o1</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()));</pre></div>
+<p>注意：如果调用空参的 sorted() 方法，需要六种的元素是实现了 Comparable 。</p>
+<h5>limit</h5>
+<p>可以设置流的最大长度，超出的部分将被抛弃。<br>
+例如:<br>
+对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素,然后打印其中年龄最大的两个作家的姓名。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">sorted</span>()
+        .<span class="pl-en">limit</span>(<span class="pl-c1">2</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));
+<span class="pl-smi">limit</span>（<span class="pl-s1">n</span>） <span class="pl-s1">n</span>大于<span class="pl-s1">stream</span>中的个数时无影响  小于它时，只会返回前面 <span class="pl-s1">n</span> 个</pre></div>
+<h5>skip</h5>
+<p>跳过流中的前 n 个元素，返回剩下的元素<br>
+例如<br>
+打印处理年龄最大的作家外的其他作家，不能有重复元素，且按你那里降序排序<br>
+打印除了年龄最大的作家外的其他作家，要求不能有重复元素，并且按照年龄降序排序。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">sorted</span>()
+        .<span class="pl-en">skip</span>(<span class="pl-c1">1</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>())):</pre></div>
+<h5>flatMap</h5>
+<p>map只能把一个对象转换成另一个对象来作为流中的元素。而flatMap可以把一个对象转换成多个对象作为流中的元素,。<br>
+例一:<br>
+打印所有书籍的名字。要求对重复的元素进行去重。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 打印所有书籍的名字。要求对重复的元素进行去重。List&lt;Author&gt; authors =getAuthors;</span>
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">flatMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">book</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">book</span>.<span class="pl-en">getName</span>()));</pre></div>
+<p>例二:<br>
+打印现有数据的所有分类。要求对分类进行去重。不能出现这种格式:哲学,爱情</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//打印现有数据的所有分类。要求对分类进行去重。不能出现这种格式:哲学,爱情</span>
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">flatMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">flatMap</span>( <span class="pl-s1">book</span> -&gt; <span class="pl-smi">Arrays</span>.<span class="pl-en">stream</span>(<span class="pl-s1">book</span>.<span class="pl-en">getCategory</span>().<span class="pl-en">split</span>(<span class="pl-s">","</span>)))
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">foreach</span>(<span class="pl-s1">String</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">String</span>)) </pre></div>
+<h4>3.4.3 终结操作</h4>
+<h5>forEach</h5>
+<p>对流中的元素进行遍历操作，我们通过传入的参数去指定对遍历到的元素进行什么具体操作。<br>
+例子:<br>
+输出所有作家的名字</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">foreach</span>(<span class="pl-s1">name</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">our</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>));
+
+<span class="pl-c">//下面这个是我想到的另一个  但是发现没有去重，作者名字会出现重复</span>
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">foreach</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">our</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<h5>count</h5>
+<p>可以用来获取当前流中元素的个数。<br>
+例子:<br>
+打印这些作家的所出书籍的数目，注意删除重复元素。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">long</span> <span class="pl-s1">count</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">flatMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">count</span>();
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">pritnln</span>(<span class="pl-s1">count</span>);</pre></div>
+<h5>max&amp;min</h5>
+<p>可以用来或者流中的最值。  这两个没有无参方法<br>
+例子:<br>
+分别获取这些作家的所出书籍的最高分和最低分并打印。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">max</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                    .<span class="pl-en">flatMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+                    .<span class="pl-en">map</span>(<span class="pl-s1">book</span> -&gt; <span class="pl-s1">book</span>.<span class="pl-en">getScore</span>())
+                    .<span class="pl-en">max</span>((<span class="pl-s1">score1</span>,<span class="pl-s1">score2</span>) -&gt; <span class="pl-s1">score1</span>-<span class="pl-s1">score2</span>);
+                    
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">min</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                    .<span class="pl-en">flatMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+                    .<span class="pl-en">map</span>(<span class="pl-s1">book</span> -&gt; <span class="pl-s1">book</span>.<span class="pl-en">getScore</span>())
+                    .<span class="pl-en">min</span>((<span class="pl-s1">score1</span>,<span class="pl-s1">score2</span>) -&gt; <span class="pl-s1">score1</span>-<span class="pl-s1">score2</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">max</span>.<span class="pl-en">get</span>());
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">min</span>.<span class="pl-en">get</span>());</pre></div>
+<h5>collect</h5>
+<p>把当前流转换为一个集合<br>
+例如：<br>
+获取一个存放所有作者名字的List集合</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">nameList</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+        .<span class="pl-en">distinct</span>()
+        .<span class="pl-en">collect</span>(<span class="pl-smi">Collectors</span>.<span class="pl-en">toList</span>());
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">nameList</span>);</pre></div>
+<p>获取一个所有书名的Set集合。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Set</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">nameSet</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                            .<span class="pl-en">flatMap</span>(<span class="pl-s1">authors</span> -&gt; <span class="pl-s1">authors</span>.<span class="pl-en">getBooks</span>().<span class="pl-en">stream</span>())
+                            .<span class="pl-en">map</span>(<span class="pl-s1">book</span> -&gt; <span class="pl-s1">book</span>.<span class="pl-en">getName</span>())
+                            .<span class="pl-en">collect</span>(<span class="pl-s1">collectors</span>.<span class="pl-en">toSet</span>());
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">nameSet</span>);
+获取<span class="pl-smi">一</span>个<span class="pl-s1">Map</span>集合，<span class="pl-s1">map</span>的<span class="pl-s1">key</span>为作者名，<span class="pl-s1">value</span>为<span class="pl-s1">List</span>&lt;<span class="pl-s1">Book</span>&gt;
+<span class="pl-s1">List</span>&lt;<span class="pl-s1">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>,<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt;&gt; <span class="pl-s1">nameBooksMap</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                            .<span class="pl-en">distinct</span>() <span class="pl-c">// 这儿去重  因为当前数据的作者名字作为 key 存在重复的</span>
+                            .<span class="pl-en">collect</span>(<span class="pl-smi">Collectors</span>.<span class="pl-en">toMap</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>(),<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>()));
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">nameBooksMap</span>);</pre></div>
+<h5>查找与匹配</h5>
+<h6>anyMatch</h6>
+<p>可以用来判断是否有任意符合匹配条件的元素，结果为boolean类型。<br>
+例子:<br>
+判断是否有年龄在29以上的作家</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">boolean</span> <span class="pl-s1">flag</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">anyMatch</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>() &gt; <span class="pl-c1">29</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">flag</span>);</pre></div>
+<h6>allMatch</h6>
+<p>可以用来判断是否都符合匹配条件，结果为boolean类型。如果都符合结果为true，否则结果为false。<br>
+例子:<br>
+判断是否所有的作家都是成年人</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">boolean</span> <span class="pl-s1">flag</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                        .<span class="pl-en">allMatch</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>() &gt;= <span class="pl-c1">18</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">flag</span>);</pre></div>
+<h6>noneMatch</h6>
+<p>可以判断流中的元素是否都不符合匹配条件。如果都不符合结果为true，否则结果为false<br>
+例子:<br>
+判断作家是否都没有超过100岁的。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">boolean</span> <span class="pl-s1">flag</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                        .<span class="pl-en">noneMatch</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>() &gt; <span class="pl-c1">100</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">flag</span>);</pre></div>
+<h6>findAny</h6>
+<p>获取流中的任意一个元素。该方法没有办法保证获取的一定是流中的第一个元素。 findAny()没有参数<br>
+例子:<br>
+获取任意一个大于18的作家，如果存在就输出他的名字</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">optionalAuthor</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                                        .<span class="pl-en">filter</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>() &gt; <span class="pl-c1">18</span>)
+                                        .<span class="pl-en">findAny</span>()
+    <span class="pl-c">//这个获得的返回值 可能为空  也可能存在一个对象</span>
+<span class="pl-s1">optionalAuthor</span>.<span class="pl-en">ifPresent</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));  <span class="pl-c">// 使用ifPresent 若没有数据 就不会执行后面的内容</span></pre></div>
+<h6>findFirst</h6>
+<p>获取流中的第一个元素。<br>
+例子:<br>
+获取一个年龄最小的作家，并输出他的姓名。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =  <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">OptionalAuthor</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">optionalAuthor</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                                                .<span class="pl-en">sorted</span>((<span class="pl-s1">a1</span>,<span class="pl-s1">a2</span>) -&gt; <span class="pl-s1">a1</span>.<span class="pl-en">getAge</span>()-<span class="pl-s1">a2</span>.<span class="pl-en">getAge</span>())  <span class="pl-c">// 前面降序 直接使用的 sorted() 无参 因为重写的那个author类里使用的o2-o1</span>
+                                                .<span class="pl-en">findFirst</span>();
+<span class="pl-s1">optionalAuthor</span>.<span class="pl-en">ifPresent</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>())); </pre></div>
+<h5>reduce归并</h5>
+<p><code class="notranslate">.reduce(initValue,(result,element) -&gt; {执行操作})</code><br>
+对流中的数据按照你指定的计算方式计算出一个结果（缩减操作）<br>
+reduce的作用是把stream中的元素给组合起来，我们可以传入一个初始值，它会按照我们的计算方式依次拿流中的元素和在初始化值的基础上进行计算，计算结果再和后面的元素计算，<br>
+他内部的计算方式如下:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">T</span> <span class="pl-s1">result</span> = <span class="pl-s1">identity</span>;
+<span class="pl-k">for</span> (<span class="pl-smi">T</span> <span class="pl-s1">element</span> :<span class="pl-smi">this</span> <span class="pl-s1">stream</span>)
+    <span class="pl-s1">result</span> = <span class="pl-s1">accumulator</span>.<span class="pl-en">apply</span>(<span class="pl-s1">result</span>,<span class="pl-s1">element</span>)
+<span class="pl-k">return</span> <span class="pl-s1">result</span>;</pre></div>
+<p>其中identity就是我们可以通过方法参数传入的初始值，accumulator的apply具体进行什么计算也是我们通过方法参数来确定的。</p>
+<p>求所有作者年龄的和</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//使用reduce求所有作者年龄的和</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Integer</span> <span class="pl-s1">sum</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+                    .<span class="pl-en">distinct</span>()
+                    .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+                    .<span class="pl-en">reduce</span>(<span class="pl-c1">0</span>,(<span class="pl-s1">result</span>,<span class="pl-s1">element</span>) -&gt; <span class="pl-s1">result</span>+<span class="pl-s1">element</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sum</span>);</pre></div>
+<p>用reduce求所有作者中年龄的最大值</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Integer</span> <span class="pl-s1">maxAge</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">reduce</span>(<span class="pl-smi">Integer</span>.<span class="pl-c1">MIN_VALUE</span>,(<span class="pl-s1">result</span>,<span class="pl-s1">element</span>) -&gt; <span class="pl-s1">result</span> &lt; <span class="pl-s1">element</span> ? <span class="pl-s1">element</span>:<span class="pl-s1">result</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">maxAge</span>);</pre></div>
+<p>使用reduce求所有作者中年龄的最小值</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 两个参数</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>() 
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">reduce</span>(<span class="pl-smi">Integer</span>.<span class="pl-c1">MAX_VALUE</span>,(<span class="pl-s1">result</span>,<span class="pl-s1">element</span>) -&gt; <span class="pl-s1">result</span> &gt; <span class="pl-s1">element</span> ? <span class="pl-s1">element</span>:<span class="pl-s1">result</span>);</pre></div>
+<p>reduce一个参数的重载形式内部的计算</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">     <span class="pl-smi">boolean</span> <span class="pl-s1">foundAny</span> = <span class="pl-c1">false</span>;
+     <span class="pl-smi">T</span> <span class="pl-s1">result</span> = <span class="pl-c1">null</span>;
+     <span class="pl-k">for</span> (<span class="pl-smi">T</span> <span class="pl-s1">element</span> : <span class="pl-smi">this</span> <span class="pl-s1">stream</span>) {
+         <span class="pl-k">if</span> (!<span class="pl-s1">foundAny</span>) {
+             <span class="pl-s1">foundAny</span> = <span class="pl-c1">true</span>;
+             <span class="pl-s1">result</span> = <span class="pl-s1">element</span>;
+         }
+         <span class="pl-k">else</span>
+             <span class="pl-s1">result</span> = <span class="pl-s1">accumulator</span>.<span class="pl-en">apply</span>(<span class="pl-s1">result</span>, <span class="pl-s1">element</span>);
+     }
+     <span class="pl-k">return</span> <span class="pl-s1">foundAny</span> ? <span class="pl-smi">Optional</span>.<span class="pl-en">of</span>(<span class="pl-s1">result</span>) : <span class="pl-smi">Optional</span>.<span class="pl-en">empty</span>();</pre></div>
+<p>如果用一个参数的重载方法去求最小值代码如下：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//一个参数的  一个参数的本质其实就是将要遍历的第一个元素作为初始值，这个在源码立里面可以看出来</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">minOptional</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>() 
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">reduce</span>((<span class="pl-s1">result</span>,<span class="pl-s1">element</span>) -&gt; <span class="pl-s1">result</span> &gt; <span class="pl-s1">element</span> ? <span class="pl-s1">element</span>:<span class="pl-s1">result</span>);
+<span class="pl-s1">minOptional</span>.<span class="pl-en">ifPresent</span>(<span class="pl-s1">age</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">age</span>));</pre></div>
+<h3>3.5 注意事项</h3>
+<ul>
+<li>
+<p>惰性求值(如果没有终结操作，没有中间操作是不会得到执行的)</p>
+</li>
+<li>
+<p>流是一次性的(一旦一个流对象经过一个终结操作后。这个流就不能再被使用)</p>
+</li>
+<li>
+<p>不会影响原数据(我们在流中可以多数据做很多处理。但是正常情况下是不会影响原来集合中的元素的。这往往也是我们期望的)</p>
+</li>
+</ul>
+<h2>4、Optional</h2>
+<h3>4.1 概述</h3>
+<p>我们在编写代码的时候出现最多的就是空指针异常。所以在很多情况下我们需要做各种非空的判断。<br>
+例如:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Author</span> <span class="pl-s1">author</span> = <span class="pl-en">getAuthor</span>();
+<span class="pl-k">if</span>(<span class="pl-s1">author</span>!=<span class="pl-s1">nu11</span>){
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printin</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>());
+}</pre></div>
+<p>尤其是对象中的属性还是一个对象的情况下。这种判断会更多。<br>
+而过多的判断语句会让我们的代码显得臃肿不堪。<br>
+所以在IDK8中引入了Optional,养成使用Optional的习惯后你可以写出更优雅的代码来避免空指针异常。<br>
+并且在很多函数式编程相关的API中也都用到了Optional，如果不会使用Optional也会对函数式编程的学习造成影响。</p>
+<h3>4.2 使用</h3>
+<h4>4.2.1 创建对象</h4>
+<p>Optional就好像是包装类，可以把我们的具体数据封装Optional对象内部。然后我们去使用Optional中封装好的方法操作封装进去的数据就可以非常优雅的避免空指针异常。</p>
+<p>我们一般使用optional的静态方法ofNullable来把数据封装成一个0ptional对象。无论传入的参数是否为nul都不会出现问题。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Author</span> <span class="pl-s1">author</span> = <span class="pl-en">getAuthor</span>();
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authorOptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-s1">author</span>);</pre></div>
+<p>你可能会觉得还要加一行代码来封装数据比较麻烦。但是如果改造下getAuthor方法，让其的返回值就是封装好的optional的话，我们在使用时就会方便很多。</p>
+<p>而且在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optional了。我们可以直接把dao方法的返口值类型定义成Optional类型，MvBastis会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。</p>
+<p>如果你确定一个对象不是空的则可以使用 Optional 的 静态方法of 来把数据封装成Optional对象。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Author</span> <span class="pl-s1">author</span> =<span class="pl-k">new</span> <span class="pl-smi">Author</span>();
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">of</span>(<span class="pl-s1">author</span>);</pre></div>
+<p>但是一定要注意，如果使用of的时候传入的参数必须不为null (尝试下传入nul会出现什么结果)<br>
+如果一个方法的返回值类型是Optional类型，而如果我们经判断发现某次计算得到的返回值为nul，这个时候就需要把null封装成Optional对象返回。这时则可以使用0ptional的静态方法empty来进行封装</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-smi">Optional</span>.<span class="pl-en">empty</span>()</pre></div>
+<h4>4.2.2 安全的消费值</h4>
+<p>我们获取到一个Optional对象后肯定需要对其中的数据进行使用。这时候我们可以使用其ifPresent方法对来消费其中的值。<br>
+这个方法会判断其内封装的数据是否为空，不为空时才会执行具体的消费代码。这样使用起来就更加安全了。<br>
+例如,以下写法就优雅的避免了空指针异常。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-en">getAuthor</span>()); <span class="pl-c">// 这儿的 getAuthor() 与我们前面的不同 返回的只是一个 author 对象</span>
+<span class="pl-s1">authoroptional</span>.<span class="pl-en">ifPresent</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">system</span>.<span class="pl-s1">out</span>.<span class="pl-en">printn</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>())):</pre></div>
+<h4>4.2.3 获取值</h4>
+<p>如果我们想获取值自己进行处理可以使用get方法获取，但是不推荐。因为当0ptional内部的数据为空的时候会出现异常。</p>
+<h4>4.2.4 安全的获取值</h4>
+<p>如果我们期望安全的获取值。我们不推荐使用get方法，而是使用Optional提供的以下方法。</p>
+<ul>
+<li>
+<p>orElseGet<br>
+获取数据并目设置数据为空时的默认值。如果数据不为空就能获取到该数据。如果为空则根据你传入的参数来创建对象作为默认值返回。<br>
+Optional authoroptional = Optional.ofNullable(getAuthor());<br>
+Author authorl= authoroptional.orElseGet(()-&gt; new Author());</p>
+</li>
+<li>
+<p>orElseThrow<br>
+获取数据，如果数据不为空就能获取到该数据。如果为空则根据你传入的参数来创建异常抛出。</p>
+</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-en">getAuthor</span>());
+<span class="pl-k">try</span> {
+    <span class="pl-smi">Author</span> <span class="pl-s1">author</span> = <span class="pl-s1">authoroptional</span>.<span class="pl-en">orElseThrow</span>((<span class="pl-smi">supplier</span>&lt;<span class="pl-smi">Throwable</span>&gt;)()-&gt; <span class="pl-en">newRuntimeException</span>(<span class="pl-s">"author为空"</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printin</span>(<span class="pl-s1">author</span>.<span class="pl-s1">getName</span>);
+}<span class="pl-k">catch</span>(<span class="pl-smi">Throwable</span> <span class="pl-s1">throwable</span>){
+    <span class="pl-s1">throwable</span>.<span class="pl-en">printstackTrace</span>();
+}</pre></div>
+<h4>4.2.5 过滤</h4>
+<p>我们可以使用filter方法对数据进行过滤。如果原本是有数据的!但是不符合判断，也会变成一个无数据的optional对象。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-en">getAuthor</span>());
+<span class="pl-s1">authoroptional</span>.<span class="pl-en">filter</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&gt;<span class="pl-c1">100</span>).<span class="pl-en">ifPresent</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printin</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<h4>4.2.6 判断</h4>
+<p>我们可以使用isPresemnt方法进行是否存在数据的判断。如果为空返回值为false,如果不为空，返回值为true。但是这种方式并不能体现Optional的好处，更推荐使用ifPresent方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-en">getAuthor</span>());
+<span class="pl-k">if</span>(<span class="pl-s1">authoroptional</span>.<span class="pl-en">isPresent</span>()){
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">authoroptional</span>.<span class="pl-en">get</span>().<span class="pl-en">getName</span>());
+}</pre></div>
+<h4>4.2.7 数据转换</h4>
+<p>Optional还提供了map可以让我们的对数据进行转换，并且转换得到的数据也还是被Optional包装好的，保证了我们的使用安全。<br>
+例如我们想获取作家的书籍集合。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Optional</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authoroptional</span> = <span class="pl-smi">Optional</span>.<span class="pl-en">ofNullable</span>(<span class="pl-en">getAuthor</span>());
+<span class="pl-smi">Optional</span>&lt;<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt;&gt; <span class="pl-s1">books</span> = <span class="pl-s1">authoroptional</span>.<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getBooks</span>());
+<span class="pl-s1">books</span>.<span class="pl-en">ifPresent</span>(<span class="pl-k">new</span> <span class="pl-smi">Consumer</span>&lt;<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt;&gt;(){
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">accept</span>(<span class="pl-smi">List</span>&lt;<span class="pl-smi">Book</span>&gt; <span class="pl-s1">books</span>){
+        <span class="pl-s1">books</span>.<span class="pl-en">forEach</span>(<span class="pl-s1">book</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">book</span>.<span class="pl-en">getName</span>()));
+    }
+});
+<span class="pl-c">//替换成lambda表达式 如下：</span>
+<span class="pl-s1">books</span>.<span class="pl-en">ifPresent</span>(<span class="pl-s1">books</span> -&gt; <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">books</span>));</pre></div>
+<h2>5、函数式接口</h2>
+<h3>5.1 概述</h3>
+<p>只有一个抽象方法的接口我们称之为函数接口。<br>
+JDK的函数式接口都加上了<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/FunctionalInterface/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/FunctionalInterface">@FunctionalInterface</a> 注解进行标识。但是无论是否加上该注解只要接口中只有一个抽象方法，都是函数式接口。</p>
+<h3>5.2 常见函数式接口</h3>
+<ul>
+<li>
+<p>Consumer 消费接口<br>
+根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数进行消费。<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/4d052cf4-59a1-4005-8d14-31181623ef43"><img src="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/4d052cf4-59a1-4005-8d14-31181623ef43" alt="image" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p>Function 计算转换接口<br>
+根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数计算或转换，把结果返回<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/1c909040-a82c-4c14-8dc9-439341002f39"><img src="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/1c909040-a82c-4c14-8dc9-439341002f39" alt="image" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p>Predicate 判断接口<br>
+根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数条件判断，返回判断结果<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/7b347ea1-8c81-413a-b9be-cc04e451dd27"><img src="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/7b347ea1-8c81-413a-b9be-cc04e451dd27" alt="image" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p>Supplier 生产型接口<br>
+根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中创建对象，把创建好的对象返回<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/f46f0b2a-f611-4186-bd77-acaa352e07ac"><img src="https://github.com/CM-CQ/CM-CQ.github.io/assets/47654229/f46f0b2a-f611-4186-bd77-acaa352e07ac" alt="image" style="max-width: 100%;"></a></p>
+</li>
+</ul>
+<h3>5.3 常用的默认方法</h3>
+<ul>
+<li>and<br>
+我们在使用Predicate接口时候可能需要进行判断条件的拼接。而and方法相当于是使用&amp;&amp;来拼接两个判断条件<br>
+例如:<br>
+打印作家中年龄大于17并且姓名的长度大于1的作家。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-s1">getAuthors</span>;
+<span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authorStream</span>=<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+<span class="pl-s1">authorStream</span>.<span class="pl-en">filter</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Author</span>&gt;(){
+    <span class="pl-c1">@</span><span class="pl-c1">override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Author</span> <span class="pl-s1">author</span>){
+    <span class="pl-k">return</span> <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&gt;<span class="pl-c1">17</span>;
+}.<span class="pl-en">and</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Author</span>&gt;(){
+    <span class="pl-c1">@</span><span class="pl-c1">override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Author</span> <span class="pl-s1">author</span>){
+    <span class="pl-k">return</span> <span class="pl-s1">author</span>.<span class="pl-en">getName</span>().<span class="pl-en">length</span>()&gt;<span class="pl-c1">1</span>;
+})).<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">author</span>));</pre></div>
+<ul>
+<li>or<br>
+我们在使用Predicate接口时候可能需要进行判断条件的拼接。而or方法相当于是使用 || 来拼接两个判断条件。<br>
+例如:<br>
+打印作家中年龄大于17或者姓名的长度小于2的作家。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//打印作家中年龄大于17或者姓名的长度小于2的作家。</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">filter</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Author</span>&gt;(){
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Author</span> <span class="pl-s1">author</span>){
+                <span class="pl-k">return</span> <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&gt;<span class="pl-c1">17</span>;
+            }
+        }.<span class="pl-en">or</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Author</span>&gt;(){
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Author</span> <span class="pl-s1">author</span>){
+                <span class="pl-k">return</span> <span class="pl-s1">author</span>.<span class="pl-en">getName</span>().<span class="pl-en">length</span>()&lt;<span class="pl-c1">2</span>;
+                }
+        })).<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printin</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<ul>
+<li>negate<br>
+Predicate接口中的方法。negate方法相当于是在判断添加前面加了个 ! 表示取反<br>
+例如:<br>
+打印作家中年龄不大于17的作家。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//打印作家中年龄不大于17的作家。</span>
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">filter</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>&lt;<span class="pl-smi">Author</span>&gt;(){
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Author</span> <span class="pl-s1">author</span>){
+                <span class="pl-k">return</span> <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()&gt;<span class="pl-c1">17</span>;
+            }
+        }.<span class="pl-en">negate</span>())
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">printin</span>(<span class="pl-s1">author</span>.<span class="pl-en">getName</span>()));</pre></div>
+<h2>6、方法引用</h2>
+<p>我们在使用lambda时，如果方法体中只有一个方法的调用的话(包括构造方法),我们可以用方法引用进一步简化代码。</p>
+<h3>6.1 推荐用法</h3>
+<p>我们在使用lambda时不需要考虑什么时候用方法引用，用哪种方法引用，方法引用的格式是什么。我们只需要在写完lambda方法发现方法体只有一行代码，并且是方法的调用时使用快捷键(光标alt + 回车)尝试是否能够转换成方法引用即可。当我们方法引用使用的多了慢慢的也可以直接写出方法引用。</p>
+<h3>6.2 基本格式</h3>
+<pre class="notranslate"><code class="notranslate">`类名或者对象名::方法名`
 </code></pre>
-<p>可使用Lambda的格式对其进行修改。修改后如下：</p>
-<pre class="notranslate"><code class="notranslate">new Thread(() -&gt; {
-    System.out.println("你知道吗 我比你想象的 更想在你身边");
-}).start();
+<h3>6.3 语法详解（了解）</h3>
+<h4>6.3.1 引用类的静态方法</h4>
+<p>其实就是引用类的静态方法</p>
+<h5>格式：</h5>
+<pre class="notranslate"><code class="notranslate">`类名::方法名`
 </code></pre>
-<p><strong>例二</strong><br>
-现有方法定义如下，其中IntBinaryOperator是一个接口。先使用匿名内部类的写法调用该方法。</p></div>
+<h5>使用前提</h5>
+<p>如果我们在重写方法的时候，方法体中只有一行代码，并且这行代码是<strong>调用了某个类的静态方法</strong>，并且我们把要重写的抽象方法中所有的参数都按照顺序传入了这个静态方法中，这个时候我们就可以引用类的静态方法。<br>
+例如:<br>
+如下代码就可以用方法引用进行简化</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> =<span class="pl-en">getAuthors</span>();
+<span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authorStream</span> =<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+<span class="pl-s1">authorStream</span>.<span class="pl-en">map</span>(<span class="pl-s1">author</span> &gt;<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>()
+            .<span class="pl-en">map</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-smi">String</span>.<span class="pl-en">valueof</span>(<span class="pl-s1">age</span>)); <span class="pl-c">// 不知道为什么 在有道云笔记的代码段里写valueOf会不显示，如果写valueof的话才会显示，这个可能跟编辑器有关</span></pre></div>
+<p>注意，如果我们所重写的方法是没有参数的，调用的方法也是没有参数的也相当于符合以上规则。<br>
+优化后如下:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>(),
+<span class="pl-s1">Stream</span>&lt;<span class="pl-s1">Author</span>&gt; <span class="pl-s1">authorstream</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+<span class="pl-s1">authorstream</span>.<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt;<span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+            .<span class="pl-en">map</span>(<span class="pl-s1">string</span>::<span class="pl-s1">valueof</span>);</pre></div>
+<h4>6.3.2 引用对象的实例方法</h4>
+<h5>格式</h5>
+<p><code class="notranslate">对象名::方法名</code></p>
+<h5>使用前提</h5>
+<p>如果我们在重写方法的时候，方法体中只有一行代码，并且这行代码是调用了某个对象的成员方法，并且我们把要重写的抽象方法中所有的参数都按照顺序传入了这个成员方法中，这个时候我们就可以引用对象的实例方法<br>
+例如:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+    <span class="pl-s1">StreamsAuthor</span>&gt; <span class="pl-s1">authorstream</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">sb</span>=<span class="pl-k">new</span> <span class="pl-smi">stringBuilder</span>();
+    <span class="pl-s1">authorstream</span>.<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+                .<span class="pl-en">forEach</span>(<span class="pl-s1">name</span> -&gt; <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">name</span>));</pre></div>
+<p>优化后：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+    <span class="pl-s1">StreamsAuthor</span>&gt; <span class="pl-s1">authorstream</span> = <span class="pl-s1">authors</span>.<span class="pl-en">stream</span>();
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">sb</span>=<span class="pl-k">new</span> <span class="pl-smi">stringBuilder</span>();
+    <span class="pl-s1">authorstream</span>.<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+                .<span class="pl-en">forEach</span>(<span class="pl-s1">sb</span>::<span class="pl-s1">append</span>);</pre></div>
+<h4>6.3.3 引用对象的示例方法</h4>
+<h5>格式</h5>
+<p><code class="notranslate">类名::方法名</code></p>
+<h5>使用前提</h5>
+<p>如果我们在重写方法的时候，方法体中只有一行代码，并且这行代码是调用了第一个参数的成员方法，并且我们把要重写的抽象方法中剩余的所有的参数都按照顺序传入了这个成员方法中，这个时候我们就可以引用类的实例方法。<br>
+例如：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">interface</span> <span class="pl-smi">useString</span>{
+    <span class="pl-smi">String</span> <span class="pl-en">use</span>(<span class="pl-smi">string</span> <span class="pl-s1">str</span>,<span class="pl-smi">int</span> <span class="pl-s1">start</span>,<span class="pl-smi">int</span> <span class="pl-s1">length</span>);
+}
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">string</span> <span class="pl-s1">subAuthorName</span>(<span class="pl-smi">string</span> <span class="pl-s1">str</span>, <span class="pl-smi">usestring</span> <span class="pl-s1">usestring</span>){
+    <span class="pl-smi">int</span> <span class="pl-s1">start</span> =<span class="pl-c1">0</span>;
+    <span class="pl-smi">int</span> <span class="pl-s1">length</span> = <span class="pl-c1">1</span>;
+    <span class="pl-k">return</span> <span class="pl-s1">useString</span>.<span class="pl-en">use</span>(<span class="pl-s1">str</span>,<span class="pl-s1">start</span>,<span class="pl-s1">length</span>);
+}
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">string</span>[] <span class="pl-s1">args</span>){
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+    <span class="pl-s1">subAuthorName</span>(<span class="pl-s">"三更草业"</span>,<span class="pl-k">new</span> <span class="pl-smi">Usestring</span>(){
+        <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+        <span class="pl-k">public</span> <span class="pl-smi">string</span> <span class="pl-en">use</span>(<span class="pl-smi">string</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">length</span>){
+            <span class="pl-k">return</span> <span class="pl-s1">str</span>.<span class="pl-en">subString</span>(<span class="pl-s1">start</span>,<span class="pl-s1">length</span>);
+        }
+    }
+}</pre></div>
+<p>优化后如下：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>){
+    <span class="pl-en">subAuthorName</span>(<span class="pl-s">"三更草堂"</span>，<span class="pl-smi">String</span>::<span class="pl-s1">substring</span>);
+}</pre></div>
+<h4>6.3.4 构造器引用</h4>
+<p>如果方法体中的一行代码是构造器的话就可以使用构造器引用。</p>
+<h5>格式</h5>
+<p><code class="notranslate">类名::new</code></p>
+<h5>使用前提</h5>
+<p>如果我们在重写方法的时候，方法体中只有一行代码，并且这行代码是调用了某个类的构造方法，并且我们把要重写的抽象方法中的所有的参数都按照顺序传入了这个构造方法中，这个时候我们就可以引用构造器。<br>
+例如:</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getName</span>())
+        .<span class="pl-en">map</span>(<span class="pl-s1">name</span>-&gt;<span class="pl-k">new</span> <span class="pl-smi">stringBuilder</span>(<span class="pl-s1">name</span>))
+        .<span class="pl-en">map</span>(<span class="pl-s1">sb</span>-&gt;<span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s">"CM"</span>).<span class="pl-en">tostring</span>())
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">str</span>-&gt;<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>));</pre></div>
+<p>优化后：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-smi">Author</span>::<span class="pl-s1">getName</span>)
+        .<span class="pl-en">map</span>(<span class="pl-s1">stringBuilder</span>::<span class="pl-k">new</span>)
+        .<span class="pl-en">map</span>(<span class="pl-s1">sb</span>-&gt;<span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s">"CM"</span>).<span class="pl-en">tostring</span>())
+        .<span class="pl-en">forEach</span>(<span class="pl-smi">System</span>.<span class="pl-s1">out</span>::<span class="pl-s1">println</span>);</pre></div>
+<h2>7、高级用法</h2>
+<h3>基本数据类型优化</h3>
+<p>我们之前用到的很多Stream的方法由于都使用了泛型。所以涉及到的参数和返回值都是引用数据类型。<br>
+即使我们操作的是整数小数，但是实际用的都是他们的包装类。JDK5中引入的自动装箱和自动拆箱让我们在使用对应的包装类时就好像使用基本数据类型一样方便。但是你一定要知道装箱和拆箱肯定是要消耗时间的。虽然这个时间消耗很小。但是在大量的数据不断的重复装箱拆箱的时候，你就不能无视这个时间损耗了。<br>
+所以为了让我们能够对这部分的时间消耗进行优化。Stream还提供了很多专门针对基本数据类型的方法。<br>
+例如:mapTolnt,mapToLong,mapToDouble,flatMapToInt,flatMapToDouble等</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">test27</span>(){
+<span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span> -&gt; <span class="pl-s1">age</span> + <span class="pl-c1">10</span>)
+        .<span class="pl-en">filter</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>&gt;<span class="pl-c1">18</span>)
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>+<span class="pl-c1">2</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-s1">system</span>.<span class="pl-s1">out</span>::<span class="pl-s1">println</span>);
+<span class="pl-s1">authors</span>.<span class="pl-en">stream</span>()
+        .<span class="pl-en">mapToInt</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span> -&gt; <span class="pl-s1">age</span> + <span class="pl-c1">10</span>)
+        <span class="pl-en">filter</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>&gt;<span class="pl-c1">18</span>)
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>+<span class="pl-c1">2</span>)
+        <span class="pl-en">forEach</span>(<span class="pl-smi">System</span>.<span class="pl-s1">out</span>::<span class="pl-s1">println</span>);
+}</pre></div>
+<h3>并行流</h3>
+<p>当流中有大量元素时，我们可以使用并行流去提高操作的效率。其实并行流就是把任务分配给多个线程去完全。如果我们自己去用代码实现的话其实会非常的复杂，并且要求你对并发编程有足够的理解和认识。而如果我们使用stream的话，我们只需要修改一个方法的调用就可以使用并行流来帮我们实现，从而提高效率。<br>
+parallel 方法可将串行流转换为并行流</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">test280</span> {
+    <span class="pl-smi">Stream</span>&lt;<span class="pl-smi">Integer</span>&gt;<span class="pl-s1">stream</span>=<span class="pl-s1">stream</span>.<span class="pl-en">of</span>(<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>，<span class="pl-c1">5</span>，<span class="pl-c1">6</span>，<span class="pl-c1">7</span>，<span class="pl-c1">8</span>，<span class="pl-c1">9</span>，<span class="pl-c1">10</span>);
+    <span class="pl-smi">Integer</span> <span class="pl-s1">sum</span>=<span class="pl-s1">stream</span>.<span class="pl-en">parallel</span>()
+            .<span class="pl-en">peek</span>(<span class="pl-k">new</span> <span class="pl-smi">consumer</span>&lt;<span class="pl-smi">Integer</span>&gt;(){
+                <span class="pl-c1">@</span><span class="pl-c1">override</span>
+                <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">accept</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">num</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">num</span>+<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>());
+            })
+            .<span class="pl-en">filter</span>(<span class="pl-s1">num</span> -&gt;<span class="pl-s1">num</span>&gt;<span class="pl-c1">5</span>)
+            .<span class="pl-en">reduce</span>((<span class="pl-s1">result</span>,<span class="pl-s1">ele</span>)-&gt;<span class="pl-s1">resut</span> + <span class="pl-s1">ele</span>)
+            .<span class="pl-en">get</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sum</span>);
+}</pre></div>
+<p>也可以通过parallelStream直接获取并行流对象。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Author</span>&gt; <span class="pl-s1">authors</span> = <span class="pl-en">getAuthors</span>();
+<span class="pl-s1">authors</span>.<span class="pl-en">parallelstream</span>()
+        .<span class="pl-en">map</span>(<span class="pl-s1">author</span> -&gt; <span class="pl-s1">author</span>.<span class="pl-en">getAge</span>())
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span> -&gt; <span class="pl-s1">age</span> + <span class="pl-c1">10</span>)
+        .<span class="pl-en">filter</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>&gt;<span class="pl-c1">18</span>)
+        .<span class="pl-en">map</span>(<span class="pl-s1">age</span>-&gt;<span class="pl-s1">age</span>+<span class="pl-c1">2</span>)
+        .<span class="pl-en">forEach</span>(<span class="pl-smi">System</span>.<span class="pl-s1">out</span>::<span class="pl-s1">println</span>);</pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
