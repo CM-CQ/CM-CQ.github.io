@@ -1,4 +1,3 @@
-
 # 函数式编程-Stream流
 ## 1、概述
 ### 1.1 为什么学？
@@ -34,7 +33,7 @@ List<Book> collect = authors.stream()
     .flatMap(collection::stream)
     .filter(book -> book.getscore()>170)
     .distinct()
-    .co1lect(co1lectors.toList());
+    .collect(collectors.toList());
 System.out.println(collect);
 ```
 ### 1.2 函数式编程思想

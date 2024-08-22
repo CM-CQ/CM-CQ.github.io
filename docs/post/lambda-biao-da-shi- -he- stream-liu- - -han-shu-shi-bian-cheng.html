@@ -10,8 +10,7 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="
-# 函数式编程-Stream流
+<meta name="description" content="# 函数式编程-Stream流
 ## 1、概述
 ### 1.1 为什么学？
 看懂公司的代码
@@ -46,15 +45,14 @@ List<Book> collect = authors.stream()
     .flatMap(collection::stream)
     .filter(book -> book.getscore()>170)
     .distinct()
-    .co1lect(co1lectors.toList());
+    .collect(collectors.toList());
 System.out.println(collect);
 ```
 ### 1.2 函数式编程思想
 #### 1.2.1 概念
 面向对象思想需要关注用什么对象完成什么事情。">
 <meta property="og:title" content="lambda表达式 和 stream流 - 函数式编程">
-<meta property="og:description" content="
-# 函数式编程-Stream流
+<meta property="og:description" content="# 函数式编程-Stream流
 ## 1、概述
 ### 1.1 为什么学？
 看懂公司的代码
@@ -89,7 +87,7 @@ List<Book> collect = authors.stream()
     .flatMap(collection::stream)
     .filter(book -> book.getscore()>170)
     .distinct()
-    .co1lect(co1lectors.toList());
+    .collect(collectors.toList());
 System.out.println(collect);
 ```
 ### 1.2 函数式编程思想
@@ -199,7 +197,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     .<span class="pl-en">flatMap</span>(<span class="pl-s1">collection</span>::<span class="pl-s1">stream</span>)
     .<span class="pl-en">filter</span>(<span class="pl-s1">book</span> -&gt; <span class="pl-s1">book</span>.<span class="pl-en">getscore</span>()&gt;<span class="pl-c1">170</span>)
     .<span class="pl-en">distinct</span>()
-    .<span class="pl-en">co1lect</span>(<span class="pl-s1">co1lectors</span>.<span class="pl-en">toList</span>());
+    .<span class="pl-en">collect</span>(<span class="pl-s1">collectors</span>.<span class="pl-en">toList</span>());
 <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">collect</span>);</pre></div>
 <h3>1.2 函数式编程思想</h3>
 <h4>1.2.1 概念</h4>
